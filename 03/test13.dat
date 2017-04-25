@@ -1,8 +1,8 @@
 (* a comment *)
 (*commentwithnospace*)
-**)
+(**)
 (***)
-* comment
+(* comment
 including a LF *)
 (			(* single ( *)
 a			(* identifier one character *)
