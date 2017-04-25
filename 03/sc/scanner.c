@@ -154,7 +154,6 @@ state1:
     }
     else
     {
-        //get_char();
         token = TOKEN_LPAR;
         goto final;
     }
@@ -281,6 +280,8 @@ state9:
     }
     else if (c == '\'' || c == '\"')
     {
+        save_char(c);
+        get_char();
         token = TOKEN_ERROR;
         goto final;
     }
@@ -339,7 +340,7 @@ state13:
     else if (c == '>')
     {
         save_char(c);
-        get_token();
+        get_char();
         token = TOKEN_NE;
         goto final;
     }
@@ -359,7 +360,7 @@ state14:
     else if (c == '<')
     {
         save_char(c);
-        get_token();
+        get_char();
         token = TOKEN_NE;
         goto final;
     }
@@ -379,7 +380,7 @@ state15:
     else if (c == '<')
     {
         save_char(c);
-        get_token();
+        get_char();
         token = TOKEN_LE;
         goto final;
     }
