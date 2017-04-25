@@ -154,7 +154,7 @@ state1:
     }
     else
     {
-        get_char();
+        //get_char();
         token = TOKEN_LPAR;
         goto final;
     }
@@ -237,7 +237,7 @@ state5:
         goto final;
     }
 state6:
-    if (char_pos(HEXDIGIT, c) >= 0)
+    if (char_pos(HEXDIGIT, tolower(c)) >= 0)
     {
         save_char(c);
         get_char();
@@ -249,7 +249,7 @@ state6:
         goto final;
     }
 state7:
-    if (char_pos(HEXDIGIT, c) >= 0)
+    if (char_pos(HEXDIGIT, tolower(c)) >= 0)
     {
         save_char(c);
         get_char();
