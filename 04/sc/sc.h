@@ -57,6 +57,7 @@ typedef struct {
 extern keyword keywords[];
 
 extern char lexeme[];
+extern char lexvalue[];
 extern int token;
 
 extern int lineno;

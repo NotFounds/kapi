@@ -20,6 +20,7 @@ void get_char()
 
 int end_of_lexeme;
 char lexeme[BUFSIZ];
+char lexvalue[BUFSIZ];
 
 void save_char(char c)
 {
@@ -28,6 +29,7 @@ void save_char(char c)
 }
 
 int token;
+int value = 0;
 
 void get_token()
 {
@@ -59,9 +61,10 @@ state0:
         get_char();
         goto state5;
     }
-    else if (char_pos(DIGIT, c) >= 0)
+    else if ((i = char_pos(DIGIT, c)) >= 0)
     {
         save_char(c);
+        value = i;
         get_char();
         goto state8;
     }
@@ -228,21 +231,24 @@ state5:
         get_char();
         goto state6;
     }
-    else if (char_pos(DIGIT, c) >= 0)
+    else if ((i = char_pos(DIGIT, c)) >= 0)
     {
         save_char(c);
+        value = i;
         get_char();
         goto state8;
     }
     else
     {
+        sprintf(lexvalue, "0");
         token = TOKEN_NUM;
         goto final;
     }
 state6:
-    if (char_pos(HEXDIGIT, tolower(c)) >= 0)
+    if ((i = char_pos(HEXDIGIT, tolower(c))) >= 0)
     {
         save_char(c);
+        value = i;
         get_char();
         goto state7;
     }
@@ -252,26 +258,30 @@ state6:
         goto final;
     }
 state7:
-    if (char_pos(HEXDIGIT, tolower(c)) >= 0)
+    if ((i = char_pos(HEXDIGIT, tolower(c))) >= 0)
     {
         save_char(c);
+        value = value * 16 + i;
         get_char();
         goto state7;
     }
     else
     {
+        sprintf(lexvalue, "%d", value);
         token = TOKEN_NUM;
         goto final;
     }
 state8:
-    if (char_pos(DIGIT, c) >= 0)
+    if ((i = char_pos(DIGIT, c)) >= 0)
     {
         save_char(c);
+        value = value * 10 + i;
         get_char();
         goto state8;
     }
     else
     {
+        sprintf(lexvalue, "%d", value);
         token = TOKEN_NUM;
         goto final;
     }
@@ -292,6 +302,7 @@ state9:
     else
     {
         save_char(c);
+        value = c;
         get_char();
         goto state11;
     }
@@ -299,36 +310,42 @@ state10:
     if (c == 'n')
     {
         save_char(c);
+        value = 10;
         get_char();
         goto state11;
     }
     else if (c == 't')
     {
         save_char(c);
+        value = 9;
         get_char();
         goto state11;
     }
     else if (c == '0')
     {
         save_char(c);
+        value = 0;
         get_char();
         goto state11;
     }
     else if (c == '\'')
     {
         save_char(c);
+        value = 39;
         get_char();
         goto state11;
     }
     else if (c == '\"')
     {
         save_char(c);
+        value = 34;
         get_char();
         goto state11;
     }
     else if (c == '\\')
     {
         save_char(c);
+        value = 92;
         get_char();
         goto state11;
     }
@@ -341,6 +358,7 @@ state11:
     if (c == '\'')
     {
         save_char(c);
+        sprintf(lexvalue, "%d", value);
         get_char();
         token = TOKEN_NUM;
         goto final;
@@ -436,7 +454,7 @@ void print_token()
     } else if (token == TOKEN_ID) {
         fprintf(lexout, "ID\t[%s]\n", lexeme);
     } else if (token == TOKEN_NUM) {
-        fprintf(lexout, "NUM\t[%s]\n", lexeme);
+        fprintf(lexout, "NUM\t[%s]\t[%s]\n", lexeme, lexvalue);
     } else if (token == TOKEN_COL) {
         fprintf(lexout, "COL\t[%s]\n", lexeme);
     } else if (token == TOKEN_SEMICOL) {
