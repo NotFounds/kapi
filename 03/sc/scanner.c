@@ -292,7 +292,37 @@ state9:
         goto state11;
     }
 state10:
-    if (c == 'n' || c == 't' || c == '0' || c == '\'' || c == '\"' || c == '\\')
+    if (c == 'n')
+    {
+        save_char(c);
+        get_char();
+        goto state11;
+    }
+    else if (c == 't')
+    {
+        save_char(c);
+        get_char();
+        goto state11;
+    }
+    else if (c == '0')
+    {
+        save_char(c);
+        get_char();
+        goto state11;
+    }
+    else if (c == '\'')
+    {
+        save_char(c);
+        get_char();
+        goto state11;
+    }
+    else if (c == '\"')
+    {
+        save_char(c);
+        get_char();
+        goto state11;
+    }
+    else if (c == '\\')
     {
         save_char(c);
         get_char();
