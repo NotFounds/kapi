@@ -524,14 +524,18 @@ void print_token()
 
 void convert(FILE *in, FILE *out)
 {
+    int sum = 0, val;
     lexin = in;
     lexout = out;
     setup_keywords();
     get_char();
     get_token();
     while (token != TOKEN_EOF) {
-        fprintf(lexout, "%d\t", lineno);
-        print_token();
+        if (token == TOKEN_NUM) {
+            sscanf(lexvalue, "%d", &val);
+            sum += val;
+        }
         get_token();
     }
+    fprintf(lexout, "%d\n", sum);
 }
