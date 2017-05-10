@@ -531,12 +531,17 @@ void convert(FILE *in, FILE *out)
     get_token();
     parse();
     while (token != TOKEN_EOF) {
-        error(ERROR_SYNTAX, lexeme, lineno);
+        parse();
     }
 }
 
 void gen_code(char *op, char *opr)
 {
     fprintf(lexout, "%-16s\t%s\n", op, opr);
+}
+
+void print_ans(int ans)
+{
+    fprintf(lexout, "ans = %d\n", ans);
 }
 
