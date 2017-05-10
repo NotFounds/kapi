@@ -66,6 +66,7 @@ extern int lineno;
 extern void get_token();
 extern void print_token();
 extern void convert(FILE *in, FILE *out);
+extern void gen_code(char *op, char *opr);
 /* keywords.c */
 extern int find_keywords(char *the_name);
 extern void setup_keywords();
@@ -73,5 +74,4 @@ extern void setup_keywords();
 extern int char_pos(char *s, char c);
 extern void error(int type, char *hint, int lineno);
 /* parse.c */
-extern void gen_code(char *op, char *opr);
 extern void parse();
