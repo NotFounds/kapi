@@ -67,7 +67,6 @@ extern void get_token();
 extern void print_token();
 extern void convert(FILE *in, FILE *out);
 extern void gen_code(char *op, char *opr);
-extern void print_ans(int ans);
 /* keywords.c */
 extern int find_keywords(char *the_name);
 extern void setup_keywords();

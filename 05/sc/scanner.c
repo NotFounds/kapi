@@ -17,6 +17,8 @@ void get_char()
     return;
 }
 
+int buf[BUFSIZ];
+int *ptr = buf;
 
 int end_of_lexeme;
 char lexeme[BUFSIZ];
@@ -528,20 +530,44 @@ void convert(FILE *in, FILE *out)
     lexout = out;
     setup_keywords();
     get_char();
+    ptr = buf;
     get_token();
     parse();
+    fprintf(lexout, "ans = %d\n", buf[0]);
     while (token != TOKEN_EOF) {
+        ptr = buf;
         parse();
+        fprintf(lexout, "ans = %d\n", buf[0]);
     }
 }
 
 void gen_code(char *op, char *opr)
 {
-    fprintf(lexout, "%-16s\t%s\n", op, opr);
-}
+    int a, b; int i;
 
-void print_ans(int ans)
-{
-    fprintf(lexout, "ans = %d\n", ans);
+    if (strcmp(op, "load_num") == 0) {
+        *ptr++ = value;
+    } else if (strcmp(op, "neg") == 0) {
+        a = *(--ptr);
+        *(ptr++) = a * -1;
+    } else if (strcmp(op, "add") == 0) {
+        b = *(--ptr);
+        a = *(--ptr);
+        *ptr++ = a + b;
+    } else if (strcmp(op, "sub") == 0) {
+        b = *(--ptr);
+        a = *(--ptr);
+        *ptr++ = a - b;
+    } else if (strcmp(op, "mul") == 0) {
+        b = *(--ptr);
+        a = *(--ptr);
+        *ptr++ = a * b;
+    } else if (strcmp(op, "div") == 0) {
+        b = *(--ptr);
+        a = *(--ptr);
+        *ptr++ = a / b;
+    } else {
+        error(ERROR_INTERNAL, "gen_code", 0);
+    }
 }
 
