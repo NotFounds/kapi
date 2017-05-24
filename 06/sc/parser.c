@@ -349,11 +349,7 @@ void parse_program()
             }
             get_token();
         }
-        if (token == TOKEN_SEMICOL)
-        {
-
-        }
-        else
+        if (token != TOKEN_SEMICOL)
         {
             error(ERROR_SYNTAX, lexeme, lineno);
         }
