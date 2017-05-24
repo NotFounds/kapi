@@ -16,28 +16,33 @@ FILE *tmpfile()
     return tmp;
 }
 
+int m_option = 0;
 int main(int argc, char *argv[])
 {
     FILE *in;
     FILE *out;
     FILE *tmp;
 
-    if (argc == 3)
+    int idx = 0;
+    if (argc >= 2)
+        if (strcmp(argv[1], "-m") == 0) { ++idx; m_option = 1; }
+
+    if (argc == (3 + idx))
     {
-        if ((in = fopen(argv[1], "r")) == NULL)
+        if ((in = fopen(argv[idx + 1], "r")) == NULL)
         {
             perror("fopen for input");
             exit(1);
         }
-        if ((out = fopen(argv[2], "w")) == NULL)
+        if ((out = fopen(argv[idx + 2], "w")) == NULL)
         {
             perror("fopen for output");
             exit(1);
         }
     }
-    else if (argc == 2)
+    else if (argc == (2 + idx))
     {
-        if ((in = fopen(argv[1], "r")) == NULL)
+        if ((in = fopen(argv[idx + 1], "r")) == NULL)
         {
             perror("fopen for input");
             exit(1);

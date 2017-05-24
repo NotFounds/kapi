@@ -86,6 +86,8 @@ extern int token;
 
 extern int lineno;
 
+extern int m_option;
+
 /* scanner.c */
 extern void get_token();
 extern void print_token();

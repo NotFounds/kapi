@@ -8,7 +8,8 @@ static int current_id;
 
 void encode(char *op, char *opr)
 {
-    //fprintf(codeout, "; %-16s\t%s\n", op, opr);
+    if (m_option) fprintf(codeout, "; %-16s\t%s\n", op, opr);
+
     if (strcmp(op, "start") == 0)
     {
         fprintf(codeout, "\t\t.cpu\t\t300HA\n");
