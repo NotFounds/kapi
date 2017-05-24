@@ -41,6 +41,8 @@
 #define TOKEN_NOT       271
 
 #define MAX_KEYWORDS    20
+#define MAX_CONSTANTS   1024
+#define MAX_SYMBOLS     1024
 
 #define MAX_ERRORCOUNT  10
 #define ERROR_OVERFLOW  1
@@ -50,11 +52,33 @@
 #define ERROR_TYPE      5
 #define ERROR_INTERNAL  6
 
+#define TYPE_LONG       1
+#define TYPE_WORD       2
+#define TYPE_BYTE       3
+
+#define OFFSET_AUTO     -1
+
+#define UNDEFINED       -1
+
 typedef struct {
     char *name;
     int value;
 } keyword;
 extern keyword keywords[];
+
+typedef struct {
+    char *value;
+    char *label;
+} constant;
+extern constant constants[];
+
+typedef struct {
+    char *label;
+    int type;
+    int size;
+    int offset;
+} symbol;
+extern symbol symbols[];
 
 extern char lexeme[];
 extern char lexvalue[];
@@ -78,3 +102,13 @@ extern char *new_label();
 extern void parse();
 /* encoder.c */
 extern void convert2(FILE *in, FILE *out);
+/* constants.c */
+extern int find_constants(char *value);
+extern int enter_constants(char *value);
+extern void setup_constants();
+extern void encode_constants(FILE *out);
+/* symbols.c */
+extern int find_symbols(char *label);
+extern int enter_symbols(char *label, int type);
+extern void setup_symbols();
+extern void encode_symbols();
