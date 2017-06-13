@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <unistd.h>
 #include "sc.h"
 
 FILE *tmpfile()
@@ -34,10 +35,24 @@ int main(int argc, char *argv[])
 
     */
 
-    int idx = 0
+    /* unistd.h:
+     *     int getopt(int argc, char * const argv[], const char *optstring);
+     *     extern char *optstring;
+     *     extern int optind, opterr, optopt;
+     * */
 
-    if (argc >= 2)
-        if (strcmp(argv[1], "-m") == 0) { ++idx; m_option = 1; }
+    int opt;
+    int idx = 0;
+    while ((opt = getopt(argc, argv, "m")) != -1)
+    {
+        switch (opt)
+        {
+            case 'm':
+                m_option = 1;
+                break;
+        }
+        ++idx;
+    }
 
     if (argc == (3 + idx))
     {
