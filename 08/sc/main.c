@@ -23,7 +23,19 @@ int main(int argc, char *argv[])
     FILE *out;
     FILE *tmp;
 
-    int idx = 0;
+    /*                               READ ME
+
+    I think this algorithm that how to resolve the test19a is NOT GENERAL.
+    So if you think "I don't want to write like this code :(", I recommend that you rewrite the code!
+
+    Or, Please Change the variable name and(or) code indents.
+
+    And MUST REMOVE this comment!
+
+    */
+
+    int idx = 0
+
     if (argc >= 2)
         if (strcmp(argv[1], "-m") == 0) { ++idx; m_option = 1; }
 
