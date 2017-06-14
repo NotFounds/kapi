@@ -353,7 +353,7 @@ void encode(char *op, char *opr)
         strcpy(label1, new_label());
         strcpy(label2, new_label());
         fprintf(codeout, "\t\tcmp.l\t\t%s,%s\n", r0, r1);
-        fprintf(codeout, "\t\tge\t\t%s\n", label1);
+        fprintf(codeout, "\t\tbge\t\t%s\n", label1);
         fprintf(codeout, "\t\tmov.l\t\t#H'00000000,%s\n", r1);
         fprintf(codeout, "\t\tbra\t\t%s\n", label2);
         fprintf(codeout, "%s:", label1);
