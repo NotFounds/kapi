@@ -409,6 +409,13 @@ state13:
         token = TOKEN_NE;
         goto final;
     }
+    else if (c == '<')
+    {
+        save_char(c);
+        get_char();
+        token = TOKEN_SHIFTL;
+        goto final;
+    }
     else
     {
         token = TOKEN_LT;
@@ -427,6 +434,13 @@ state14:
         save_char(c);
         get_char();
         token = TOKEN_NE;
+        goto final;
+    }
+    else if (c == '>')
+    {
+        save_char(c);
+        get_char();
+        token = TOKEN_SHIFTR;
         goto final;
     }
     else

@@ -70,6 +70,18 @@ void parse_term()
             parse_factor();
             gen_code("mod", "-");
         }
+        else if (token == TOKEN_SHIFTL)
+        {
+            get_token();
+            parse_factor();
+            gen_code("shiftl", "-");
+        }
+        else if (token == TOKEN_SHIFTR)
+        {
+            get_token();
+            parse_factor();
+            gen_code("shiftr", "-");
+        }
         else
         {
             break;

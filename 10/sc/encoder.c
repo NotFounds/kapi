@@ -257,6 +257,34 @@ void encode(char *op, char *opr)
         push_inuse(r1);
         push_idle(r0);
     }
+    else if (strcmp(op, "shiftl") == 0)
+    {
+        r0 = pop_inuse();
+        r1 = pop_inuse();
+        strcpy(label1, new_label());
+        strcpy(label2, new_label());
+        fprintf(codeout, "%s:\t\tdec.l\t\t#1,%s\n", label1, r0);
+        fprintf(codeout, "\t\tbmi\t\t%s\n", label2);
+        fprintf(codeout, "\t\tshal.l\t\t%s\n", r1);
+        fprintf(codeout, "\t\tbra\t\t%s\n", label1);
+        fprintf(codeout, "%s\t\t.equ\t\t$\n", label2);
+        push_inuse(r1);
+        push_idle(r0);
+    }
+    else if (strcmp(op, "shiftr") == 0)
+    {
+        r0 = pop_inuse();
+        r1 = pop_inuse();
+        strcpy(label1, new_label());
+        strcpy(label2, new_label());
+        fprintf(codeout, "%s:\t\tdec.l\t\t#1,%s\n", label1, r0);
+        fprintf(codeout, "\t\tbmi\t\t%s\n", label2);
+        fprintf(codeout, "\t\tshar.l\t\t%s\n", r1);
+        fprintf(codeout, "\t\tbra\t\t%s\n", label1);
+        fprintf(codeout, "%s\t\t.equ\t\t$\n", label2);
+        push_inuse(r1);
+        push_idle(r0);
+    }
     else if (strcmp(op, "add") == 0)
     {
         r0 = pop_inuse();
