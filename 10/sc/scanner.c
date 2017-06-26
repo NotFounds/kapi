@@ -146,6 +146,13 @@ state0:
         token = TOKEN_EOF;
         goto final;
     }
+    else if (c == '%')
+    {
+        save_char(c);
+        get_char();
+        token = TOKEN_PERCENT;
+        goto final;
+    }
     else
     {
         save_char(c);

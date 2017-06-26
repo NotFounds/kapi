@@ -90,6 +90,25 @@ char *ER2RL(char *er)
     return r;
 }
 
+char *ER2E(char *er)
+{
+    char *r;
+    if (strcmp(er, "ER0") == 0) r = "E0";
+    else if (strcmp(er, "ER1") == 0) r = "E1";
+    else if (strcmp(er, "ER1") == 0) r = "E2";
+    else if (strcmp(er, "ER1") == 0) r = "E3";
+    else if (strcmp(er, "ER1") == 0) r = "E4";
+    else if (strcmp(er, "ER1") == 0) r = "E5";
+    else if (strcmp(er, "ER1") == 0) r = "E6";
+    else if (strcmp(er, "ER1") == 0) r = "E7";
+    else
+    {
+        error(ERROR_INTERNAL, "ER2E", 0);
+        r = NULL;
+    }
+    return r;
+}
+
 void encode(char *op, char *opr)
 {
     char label1[BUFSIZ];
@@ -225,6 +244,16 @@ void encode(char *op, char *opr)
         r0 = pop_inuse();
         r1 = pop_inuse();
         fprintf(codeout, "\t\tand.l\t\t%s,%s\n", r0, r1);
+        push_inuse(r1);
+        push_idle(r0);
+    }
+    else if (strcmp(op, "mod") == 0)
+    {
+        r0 = pop_inuse();
+        r1 = pop_inuse();
+        fprintf(codeout, "\t\tdivxs.w\t\t%s,%s\n", ER2R(r0), r1);
+        fprintf(codeout, "\t\tmov.w\t\t%s,%s\n", ER2E(r1), ER2R(r1));
+        fprintf(codeout, "\t\texts.l\t\t%s\n", r1);
         push_inuse(r1);
         push_idle(r0);
     }

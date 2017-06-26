@@ -64,6 +64,12 @@ void parse_term()
             parse_factor();
             gen_code("and", "-");
         }
+        else if (token == TOKEN_PERCENT)
+        {
+            get_token();
+            parse_factor();
+            gen_code("mod", "-");
+        }
         else
         {
             break;

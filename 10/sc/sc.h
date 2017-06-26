@@ -23,6 +23,7 @@
 #define TOKEN_MINUS     15
 #define TOKEN_ASTER     16
 #define TOKEN_SLASH     17
+#define TOKEN_PERCENT   18
 
 #define TOKEN_IF        256
 #define TOKEN_THEN      257
