@@ -2,6 +2,7 @@
 #define ALPHABET      "abcdefghijklmnopqrstuvwxyz_"
 #define DIGIT         "0123456789"
 #define HEXDIGIT      "0123456789abcdef"
+#define BINDIGIT      "01"
 
 #define TOKEN_EOF       -1
 #define TOKEN_ERROR     0

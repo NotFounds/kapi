@@ -231,6 +231,12 @@ state5:
         get_char();
         goto state6;
     }
+    else if (c == 'b')
+    {
+        save_char(c);
+        get_char();
+        goto state16;
+    }
     else if ((i = char_pos(DIGIT, c)) >= 0)
     {
         save_char(c);
@@ -439,6 +445,33 @@ state15:
     else
     {
         token = TOKEN_EQ;
+        goto final;
+    }
+state16:
+    if ((i = char_pos(HEXDIGIT, tolower(c))) >= 0)
+    {
+        save_char(c);
+        value = i;
+        get_char();
+        goto state17;
+    }
+    else
+    {
+        token = TOKEN_ERROR;
+        goto final;
+    }
+state17:
+    if ((i = char_pos(BINDIGIT, tolower(c))) >= 0)
+    {
+        save_char(c);
+        value = value * 2 + i;
+        get_char();
+        goto state17;
+    }
+    else
+    {
+        sprintf(lexvalue, "%d", value);
+        token = TOKEN_NUM;
         goto final;
     }
 final:
