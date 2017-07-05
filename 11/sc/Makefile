@@ -8,7 +8,7 @@ keywords.o : keywords.c sc.h
 	gcc -c keywords.c
 misc.o : misc.c sc.h
 	gcc -c misc.c
-parse.o : parser.c sc.h
+parser.o : parser.c sc.h
 	gcc -c parser.c
 encoder.o : encoder.c sc.h
 	gcc -c encoder.c
