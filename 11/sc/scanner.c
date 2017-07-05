@@ -140,6 +140,13 @@ state0:
         token = TOKEN_SEMICOL;
         goto final;
     }
+    else if (c == ',')
+    {
+        save_char(c);
+        get_char();
+        token = TOKEN_COMMA;
+        goto final;
+    }
     else if (c == EOF)
     {
         save_char(c);

@@ -248,6 +248,7 @@ void parse_statement()
                 ++args;
                 while (token == TOKEN_COMMA)
                 {
+                    get_token();
                     parse_expression();
                     gen_code("store_arg", "-");
                     ++args;
