@@ -5,7 +5,6 @@
 static FILE *codein;
 static FILE *codeout;
 static int current_id;
-static char label_return[BUFSIZ];
 
 static int  idle_sp = -1;
 static char *idle[BUFSIZ];
@@ -114,6 +113,7 @@ void encode(char *op, char *opr)
 {
     char label1[BUFSIZ];
     char label2[BUFSIZ];
+    static char label_return[BUFSIZ];
     char *r0;
     char *r1;
     int i;
