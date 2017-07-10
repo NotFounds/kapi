@@ -450,6 +450,7 @@ void parse_function()
                     {
                         get_token();
                         parse_variable();
+                        get_token();
                     }
                 }
 
