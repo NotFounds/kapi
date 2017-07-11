@@ -156,6 +156,10 @@ void frame_end()
         if (symbols[end_of_symbols - i - 1].level != 0)
         {
             symbols[end_of_symbols - i - 1].offset = 4 * (i - fp);
+            if (symbols[end_of_symbols - i - 1].size > 4)
+            {
+                symbols[end_of_symbols - i - 1].offset -= symbols[end_of_symbols - i - 1].size - 4;
+            }
         }
     }
 }
