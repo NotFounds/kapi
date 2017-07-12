@@ -651,14 +651,7 @@ void encode(char *op, char *opr)
             error(ERROR_INTERNAL, "encode: set_size", 0);
             return;
         }
-        if(symbols[current_id].level == 0)
-        {
-            symbols[current_id].size = symbols[current_id].size * atoi(opr);
-        }
-        else
-        {
-            symbols[current_id].size = 4 * atoi(opr);
-        }
+        symbols[current_id].size = symbols[current_id].size * atoi(opr);
     }
     else
     {
